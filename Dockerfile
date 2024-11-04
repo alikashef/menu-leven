@@ -19,7 +19,7 @@ FROM base as builder
 WORKDIR /nextl
 COPY . .
 COPY --from=dependencies /nextl/node_modules ./node_modules
-RUN bun build  # برای پروژه‌های Next.js، نیازی به مشخص کردن فایل ورودی نیست
+RUN npx next build  # استفاده از next build به جای bun build
 
 # مرحله اجرای برنامه
 FROM base as runner
@@ -27,4 +27,4 @@ WORKDIR /nextl
 COPY --from=builder /nextl/ ./
 
 EXPOSE 3000
-CMD ["bun", "start"]
+CMD ["npx", "next", "start"]  # استفاده از npx برای اجرای سرور

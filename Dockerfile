@@ -1,32 +1,30 @@
-# استفاده از یک تصویر پایه برای node
-FROM node:18-alpine AS dependencies
+# دانلود node و نصب bun
+FROM hub.hamdocker.ir/library/node:18.14.1 as base
+WORKDIR /nextl
 
 # نصب bun
 RUN curl -fsSL https://bun.sh/install | bash
 
-# تعریف مسیر نصب bun در متغیرهای محیطی
-ENV BUN_INSTALL="/root/.bun"
-ENV PATH="${BUN_INSTALL}/bin:${PATH}"
+# تعریف متغیر PATH برای استفاده از bun
+ENV PATH="/root/.bun/bin:$PATH"
 
-# تعیین دایرکتوری کاری
-WORKDIR /app
-
-# کپی کردن فایل‌های پکیج و نصب وابستگی‌ها با استفاده از bun
+# مرحله نصب وابستگی‌ها
+FROM base as dependencies
+WORKDIR /nextl
 COPY package.json bun.lockb ./
 RUN bun install
 
-# مرحله ساخت
-FROM node:18-alpine AS build
-
-# کپی کردن وابستگی‌ها از مرحله قبلی
-COPY --from=dependencies /app/node_modules ./node_modules
-
-# تنظیم متغیرهای محیطی برای bun
-ENV BUN_INSTALL="/root/.bun"
-ENV PATH="${BUN_INSTALL}/bin:${PATH}"
-
-# اجرای دستور build با bun
+# مرحله ساخت برنامه
+FROM base as builder
+WORKDIR /nextl
+COPY . .
+COPY --from=dependencies /nextl/node_modules ./node_modules
 RUN bun build
 
-# تنظیم نهایی برای اجرا
+# مرحله اجرای برنامه
+FROM base as runner
+WORKDIR /nextl
+COPY --from=builder /nextl/ ./
+
+EXPOSE 3000
 CMD ["bun", "start"]

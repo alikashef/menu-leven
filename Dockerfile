@@ -14,12 +14,12 @@ WORKDIR /nextl
 COPY package.json bun.lockb ./
 RUN bun install
 
-# مرحله ساخت برنامه
+# مرحله ساخت برنامه (به جای bun build، از next build استفاده کنید)
 FROM base as builder
 WORKDIR /nextl
 COPY . .
 COPY --from=dependencies /nextl/node_modules ./node_modules
-RUN bun build
+RUN npm run build  # تغییر به `next build` اگر از Next.js استفاده می‌کنید
 
 # مرحله اجرای برنامه
 FROM base as runner
@@ -28,3 +28,4 @@ COPY --from=builder /nextl/ ./
 
 EXPOSE 3000
 CMD ["bun", "start"]
+

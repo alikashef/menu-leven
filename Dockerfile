@@ -1,11 +1,11 @@
-# دانلود node و نصب bun
+# مرحله پایه: نصب Bun
 FROM hub.hamdocker.ir/library/node:18.14.1 as base
 WORKDIR /nextl
 
-# نصب bun
+# نصب Bun
 RUN curl -fsSL https://bun.sh/install | bash
 
-# تعریف متغیر PATH برای استفاده از bun
+# تعریف متغیر PATH برای استفاده از Bun
 ENV PATH="/root/.bun/bin:$PATH"
 
 # مرحله نصب وابستگی‌ها
@@ -14,12 +14,12 @@ WORKDIR /nextl
 COPY package.json bun.lockb ./
 RUN bun install
 
-# مرحله ساخت برنامه (به جای bun build، از next build استفاده کنید)
+# مرحله ساخت برنامه
 FROM base as builder
 WORKDIR /nextl
 COPY . .
 COPY --from=dependencies /nextl/node_modules ./node_modules
-RUN npm run build  # تغییر به `next build` اگر از Next.js استفاده می‌کنید
+RUN bun build ./path/to/your/main/file.ts  # تغییر به مسیر فایل اصلی خود
 
 # مرحله اجرای برنامه
 FROM base as runner
@@ -28,4 +28,3 @@ COPY --from=builder /nextl/ ./
 
 EXPOSE 3000
 CMD ["bun", "start"]
-

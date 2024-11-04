@@ -19,7 +19,7 @@ FROM base as builder
 WORKDIR /nextl
 COPY . .
 COPY --from=dependencies /nextl/node_modules ./node_modules
-RUN bun build ./path/to/your/main/file.ts  # تغییر به مسیر فایل اصلی خود
+RUN bun build  # برای پروژه‌های Next.js، نیازی به مشخص کردن فایل ورودی نیست
 
 # مرحله اجرای برنامه
 FROM base as runner

@@ -1,5 +1,5 @@
 # مرحله پایه: نصب Bun
-FROM hub.hamdocker.ir/library/node:18.14.1 as base
+FROM node:18.17.0 as base
 WORKDIR /nextl
 
 # نصب Bun
@@ -19,7 +19,7 @@ FROM base as builder
 WORKDIR /nextl
 COPY . .
 COPY --from=dependencies /nextl/node_modules ./node_modules
-RUN npx next build  # استفاده از next build به جای bun build
+RUN npx next build  # استفاده از next build برای ساخت پروژه
 
 # مرحله اجرای برنامه
 FROM base as runner

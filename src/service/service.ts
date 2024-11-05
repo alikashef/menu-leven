@@ -1,8 +1,8 @@
 
 import axios from "axios";
 
-export const BASE_URL = "http://admin.levenbakery.ir/api/";
-export const BASE_URL_MEDIA = "http://admin.levenbakery.ir";
+export const BASE_URL = "https://admin.levenbakery.ir/api/";
+export const BASE_URL_MEDIA = "https://admin.levenbakery.ir";
 
 const Api = axios.create({
   baseURL: BASE_URL,

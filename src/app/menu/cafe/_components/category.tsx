@@ -25,7 +25,7 @@ const Category = ({
       }}
       className={
         " transition rounded-2xl flex-shrink-0 basis-[100px]  p-2 flex flex-col items-center justify-center" +
-        (isActive ? " bg-white" : " bg-[#028066]")
+        (isActive ? " bg-[#028066]" : " bg-white")
       }
     >
       <div>
@@ -34,7 +34,7 @@ const Category = ({
             src={imageUrl}
             alt="menu"
             className={
-              "w-14 h-14 " + (isActive ? "" : "filter invert brightness-0")
+              "w-12 h-12 " + (isActive ? "filter invert brightness-0" : "")
             } // apply filter styles here
           />
         )}
@@ -42,7 +42,7 @@ const Category = ({
       <p
         className={
           "text-base font-medium " +
-          (isActive ? " text-[#028066]" : " text-white")
+          (isActive ? " text-white" : "  text-[#028066]")
         }
       >
         {name}

@@ -18,7 +18,8 @@ const Themenupage = () => {
             width={270}
           />
         </div>
-        <div className="flex flex-col items-center gap-2">
+        <div className="bg-red w-screen h-screen">
+        <div className="flex flex-col items-center  gap-2">
           {/* looding circle */}
           <Oval
             visible={true}
@@ -35,6 +36,8 @@ const Themenupage = () => {
             ممنون از صبرتون
           </p>
         </div>
+        </div>
+      
       </div>
     </div>
   );

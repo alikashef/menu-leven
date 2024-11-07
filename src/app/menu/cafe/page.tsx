@@ -83,6 +83,7 @@ import Card from "./_components/card";
 import Category from "./_components/category";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { AxiosResponse } from "axios";
 
 const Cafepage = () => {
   const categoriesQuery = useQuery({
@@ -137,13 +138,14 @@ const Cafepage = () => {
   }
 
   return (
-    <div className="mx-4 relative max-w-[500px] bg-[#F6D5AE]  rounded-t-full flex flex-col items-center px-6 pt-2  overflow-hidden font-peyda">
-      <div className="mx-auto fixed -z-10 inset-0 max-w-[500px] h-screen bg-backgrund bg-no-repeat bg-cover"></div>
+    <div className="flex justify-center items-center h-screen pt-4">
+    <div className="h-full relative max-w-full sm:max-w-[500px] bg-[#F6D5AE]  rounded-t-full flex flex-col items-center px-6 pt-2  overflow-hidden font-peyda">
+      <div className="mx-auto fixed -z-10 inset-0 max-w-full sm:max-w-[500px] h-screen bg-backgrund bg-no-repeat bg-cover"></div>
       
       {/* logo cafe */}
-      <div className="pt-20">
+      <motion.div className="pt-20">
         <Image src={"/main-logo.svg"} alt="logocafe" height={100} width={200} />
-      </div>
+      </motion.div>
 
       {/* دسته‌بندی‌ها */}
       {categoriesQuery.isLoading ? (
@@ -152,9 +154,9 @@ const Cafepage = () => {
           <p className="text-center text-[#028066] text-sm font-medium">ممنون از صبرتون</p>
         </div>
       ) : (
-        <div className="sticky top-0 z-10  w-full py-3 flex gap-2 overflow-x-auto scrollbar scrollbar-thumb-gray-400 scrollbar-track-gray-100">
-          {categories?.map((category) => (
-            <div key={category.id} className="py-3 flex-shrink-0">
+        <div className="  w-full py-3 flex gap-2 overflow-x-auto overflow-y-hidden   scrollbar scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+          {[...categories, ...categories]?.map((category) => ( 
+            <div key={category.id} className="py-3 flex-shrink-0 h-[150px]">
               <Category
                 onClick={() => setCategoryId(category.id)}
                 isActive={categoryId === category.id}
@@ -168,7 +170,7 @@ const Cafepage = () => {
       )}
 
       {/* بخش آیتم‌های منو */}
-      <div className="overflow-y-auto w-full max-h-[70vh] mt-4">
+      <div className="overflow-y-auto w-full  mt-4">
         {categories?.map((category) => {
           if (category.items?.length === 0) return null;
           return (
@@ -191,6 +193,7 @@ const Cafepage = () => {
           );
         })}
       </div>
+    </div>
     </div>
   );
 };

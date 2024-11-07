@@ -86,7 +86,7 @@ import { useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
 
 const Cafepage = () => {
-  const categoriesQuery = useQuery({
+  const categoriesQuery = useQuery<{data:{data:any[]}}>({
     queryKey: ["categories"],
     queryFn: () =>
       Api.get("/categories?populate[icon]=*&populate[items][populate][0]=image"),
@@ -127,6 +127,7 @@ const Cafepage = () => {
           animate={startAnimation ? { scale: 1.2, opacity: 0 } : {}}
           transition={{ duration: 2 }}
           className="flex flex-col items-center"
+          layoutId="logo"
         >
           <Image src={"/logosplash.svg"} alt="logocafe" height={130} width={270} />
           <div className="mt-4">
@@ -143,7 +144,7 @@ const Cafepage = () => {
       <div className="mx-auto fixed -z-10 inset-0 max-w-full sm:max-w-[500px] h-screen bg-backgrund bg-no-repeat bg-cover"></div>
       
       {/* logo cafe */}
-      <motion.div className="pt-20">
+      <motion.div className="pt-20" layoutId="logo">
         <Image src={"/main-logo.svg"} alt="logocafe" height={100} width={200} />
       </motion.div>
 
@@ -155,7 +156,7 @@ const Cafepage = () => {
         </div>
       ) : (
         <div className="  w-full py-3 flex gap-2 overflow-x-auto overflow-y-hidden   scrollbar scrollbar-thumb-gray-400 scrollbar-track-gray-100">
-          {[...categories, ...categories]?.map((category) => ( 
+          {categories?.map((category) => (  
             <div key={category.id} className="py-3 flex-shrink-0 h-[150px]">
               <Category
                 onClick={() => setCategoryId(category.id)}
@@ -179,7 +180,7 @@ const Cafepage = () => {
                 {category.name}
               </h1>
               <div className="flex flex-col gap-3">
-                {category.items?.map((item) => (
+                {category.items?.map((item:any) => (
                   <Card
                     key={item.id}
                     imageUrl={getImgUrl(item?.image?.url)}

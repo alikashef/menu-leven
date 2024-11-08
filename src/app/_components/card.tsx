@@ -5,12 +5,24 @@ interface CardProps {
   imageUrl?: string;
   title: string;
   description: string;
-  price: number;
+  price: string;
+  exist: boolean;
 }
 
-const Card: React.FC<CardProps> = ({ imageUrl, title, description, price }) => {
+const Card: React.FC<CardProps> = ({
+  imageUrl,
+  title,
+  description,
+  price,
+  exist = true,
+}) => {
   return (
-    <div className="bg-white rounded-2xl flex shadow-lg">
+    <div
+      className={
+        "bg-white rounded-2xl flex shadow-lg relative overflow-hidden" +
+        (!exist ? " filter grayscale" : "")
+      }
+    >
       <div className="w-1/2">
         {imageUrl && (
           <Image
@@ -30,6 +42,16 @@ const Card: React.FC<CardProps> = ({ imageUrl, title, description, price }) => {
           <Tomanicon />
         </div>
       </div>
+
+      {!exist && (
+        <div className="absolute top-0  flex items-start px-3 py-3 right-0 w-full h-full bg-gradient-to-l from-transparent to-[#028066] opacity-50">
+         
+         <span className="bg-white rounded-lg py-2 px-4 text-black font-semibold">
+
+          ناموجود
+         </span>
+        </div>
+      )}
     </div>
   );
 };

@@ -24,7 +24,7 @@ const Category = ({
         onClick && onClick();
       }}
       className={
-        " transition rounded-2xl flex-shrink-0 basis-[100px]   p-2 flex flex-col items-center justify-center" +
+        " transition rounded-2xl flex-shrink-0 basis-[100px]   p-2 px-3 flex flex-col items-center justify-center" +
         (isActive ? " bg-[#028066]" : " bg-white")
       }
     >
@@ -41,7 +41,7 @@ const Category = ({
       </div>
       <p
         className={
-          "text-base font-medium " +
+          "text-base font-semibold " +
           (isActive ? " text-white" : "  text-[#028066]")
         }
       >

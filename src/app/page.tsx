@@ -83,6 +83,8 @@ import Category from "./_components/category";
 import { cubicBezier, motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
+import { Loader } from "@/components/loader";
+import { formatNum } from "@/utils/formatNum";
 
 const Cafepage = () => {
   const categoriesQuery = useQuery<{ data: { data: any[] } }>({
@@ -118,10 +120,11 @@ const Cafepage = () => {
     return BASE_URL_MEDIA + url;
   };
 
-  const categories = categoriesQuery.data?.data?.data.filter((category) => category.items.length > 0);
+  const categories = categoriesQuery.data?.data?.data.filter(
+    (category) => category.items.length > 0
+  );
 
   const showSplash = categoriesQuery.isLoading || !startAnimation;
-
 
   // if (showSplash) {
   //   return (
@@ -176,39 +179,37 @@ const Cafepage = () => {
           />
         </motion.div>
 
-          {/* دسته‌بندی‌ها */}
+        {/* دسته‌بندی‌ها */}
         <AnimatePresence>
           {showSplash ? (
             <motion.div
-              transition={{ duration: 0 }} 
+              transition={{ duration: 0 }}
               initial={{ opacity: 1 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex  w-[500px] flex-col mt-36 justify-center items-center gap-2"
+              className="flex  w-[500px] justify-between pb-9 flex-col mt-24 flex-1 items-center gap-2"
             >
-              <Oval
+              <p className="text-center text-[#028066] font-semibold text-lg">
+                به دنیای عطر و طعم خوش آمدید
+              </p>
+              {/* <Oval
                 visible={true}
                 height="30"
                 width="30"
                 color="#028066"
                 strokeWidth={5}
                 ariaLabel="oval-loading"
-              />
-              <p className="text-center text-[#028066] text-sm font-medium">
-                ممنون از صبرتون
-              </p>
+              /> */}
+              <Loader/>
             </motion.div>
           ) : (
             <>
-              <motion.div
-
-                className="  w-full py-3  flex-shrink-0 flex gap-2 overflow-x-auto overflow-y-hidden   scrollbar scrollbar-thumb-gray-400 scrollbar-track-gray-100"
-              >
+              <motion.div className="  w-full py-3  flex-shrink-0 flex gap-2 overflow-x-auto overflow-y-hidden   scrollbar scrollbar-thumb-gray-400 scrollbar-track-gray-100">
                 {categories?.map((category) => (
                   <motion.div
-                  initial={{ opacity: 0 }}
-                  transition={{ delay: 1, duration: 1 }}
-                  animate={{ opacity: 1 }}
+                    initial={{ opacity: 0 }}
+                    transition={{ delay: 1, duration: 1 }}
+                    animate={{ opacity: 1 }}
                     key={category.id}
                     className="py-3 flex-shrink-0 h-[100px]"
                   >
@@ -247,7 +248,8 @@ const Cafepage = () => {
                             imageUrl={getImgUrl(item?.image?.url)}
                             title={item.name}
                             description={item.description}
-                            price={item.price}
+                            price={formatNum(item.price)}
+                            exist={item.exist}
                           />
                         ))}
                       </div>
@@ -256,7 +258,6 @@ const Cafepage = () => {
                 })}
               </motion.div>
             </>
-
           )}
         </AnimatePresence>
       </motion.div>

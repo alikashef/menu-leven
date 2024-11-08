@@ -200,7 +200,7 @@ const Cafepage = () => {
                 strokeWidth={5}
                 ariaLabel="oval-loading"
               /> */}
-              <Loader/>
+              <Loader />
             </motion.div>
           ) : (
             <>
@@ -256,6 +256,18 @@ const Cafepage = () => {
                     </div>
                   );
                 })}
+                {/* Power by Pixel Genius */}
+                <a className="flex  items-center justify-center gap-1 mt-10 mb-4" href="https://pixelgenius.ir" target="_blank">
+                    <Image
+                      src={"/pixel.svg"}
+                      alt="logocafe"
+                      height={20}
+                      width={20}
+                    />
+                    <p className="text-center text-gray-700 text-xs font-semibold">
+                      Powered by Pixel Genius
+                    </p>
+                </a>
               </motion.div>
             </>
           )}

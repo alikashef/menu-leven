@@ -150,7 +150,7 @@ const Cafepage = () => {
       initial={{ paddingTop: "0" }}
       transition={{ duration: 0.5 }}
       animate={!showSplash ? { paddingTop: "32px" } : {}}
-      className="flex justify-center items-center h-screen"
+      className="flex justify-center items-center h-full"
     >
       <motion.div
         initial={{ borderTopLeftRadius: "0", borderTopRightRadius: "0" }}

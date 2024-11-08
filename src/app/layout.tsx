@@ -14,8 +14,8 @@ export default function RootLayout({
 }>) {
   return (
     <QueryClientProvider client={queryClient}>
-      <html lang="en">
-        <body className={`antialiased overflow-hidden`}>{children}</body>
+      <html lang="en" className="h-full">
+        <body className={`antialiased overflow-hidden h-full`}>{children}</body>
       </html>
     </QueryClientProvider>
   );

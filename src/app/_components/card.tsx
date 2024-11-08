@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Tomanicon from "../../../../../public/icon/toman";
+import Tomanicon from "../../../public/icon/toman";
 
 interface CardProps {
   imageUrl?: string;
